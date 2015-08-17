@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1439502954 source:c:\users\aluno\desktop\projetomatriz\main.c
+	<stdio.h>
+	<time.h>
+	<stdlib.h>
+
