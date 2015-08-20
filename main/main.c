@@ -12,7 +12,6 @@ int calc_c(int tamanho, int escalar, int * matrizA, int * matrizB);
 
 //Funcao para calculo em GAS
 int calc_gas(int tamanho, int escalar, int * matrizA, int * matrizB);
-#include "calc_gas.c"
 
 //Funcao para calculo em NASM
 extern int calc_nams(int tamanho, int escalar, int * matrizA, int * matrizB);
@@ -32,7 +31,7 @@ int main(int argc, char **argv)
 
   //TODO Medir tempo
 
-  printf("Trabalho Final de LM (Noturno) - Grupo \n");
+  printf("Trabalho Final de LM (Noturno) - Grupo 4\n");
 
   printf("%d\n", calc_c(L, escalar, matrizA, matrizB));
   //printf("%d\n", calc_gas(L, escalar, matrizA, matrizB));
