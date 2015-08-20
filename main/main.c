@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 //Auxiliares
 void PrintMatriz(int tamanho, int * matriz);
@@ -16,24 +17,41 @@ int calc_gas(int tamanho, int escalar, int * matrizA, int * matrizB);
 //Funcao para calculo em NASM
 extern int calc_nams(int tamanho, int escalar, int * matrizA, int * matrizB);
 
+//Funcao principal
 int main(int argc, char **argv)
 {
-  int L = 4; //tamanho matriz
+  printf("Trabalho Final de LM (Noturno) - Grupo 4\n");
+
+  srand(time(NULL)); //inicializa seed para gerar numeros random
+
+  struct timeval  inicio, fim; //para medicao de tempo
+  int i;
+
+  int L = 4; //tamanho lado matriz
+  int escalar = 5; //escalar da multiplicacao
 
   int matrizA[L * L];
   int matrizB[L * L];
-  int escalar = 5;
-
-  srand(time(NULL)); //inicializa seed para gerar numeros random
 
   InicializaMatriz(L*L, matrizA);
   InicializaMatriz(L*L, matrizB);
 
-  //TODO Medir tempo
+  int stress = 10000000;
 
-  printf("Trabalho Final de LM (Noturno) - Grupo 4\n");
+  gettimeofday(&inicio, NULL);
 
-  printf("%d\n", calc_c(L, escalar, matrizA, matrizB));
+  for (i = 0; i < stress; ++i)
+  {
+    calc_c(L, escalar, matrizA, matrizB);
+  }
+
+  gettimeofday(&fim, NULL);
+
+  printf("Calculo em C (%d x): %lf segundos.\n", stress,
+    (double) (fim.tv_usec - inicio.tv_usec) / 1000000 + (double) (fim.tv_sec - inicio.tv_sec));
+
+  //printf("%d\n", calc_c(L, escalar, matrizA, matrizB));
+  //printf("%d\n", calc_nams(L, escalar, matrizA, matrizB));
   //printf("%d\n", calc_gas(L, escalar, matrizA, matrizB));
 
   return 0;
