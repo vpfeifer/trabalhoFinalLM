@@ -18,11 +18,10 @@
 
 int calc_c(int tamanho, int escalar, int * matrizA, int * matrizB)
 {
-  // printf("\nMatriz A");
-  // PrintMatriz(tamanho, matrizA);
-
-  // printf("\nMatriz B");
-  // PrintMatriz(tamanho, matrizB);
+  printf("\nMatriz A");
+  PrintMatriz(tamanho, matrizA);
+  printf("\nMatriz B");
+  PrintMatriz(tamanho, matrizB);
 
   int i = 0;
   int j = 0;
@@ -33,24 +32,18 @@ int calc_c(int tamanho, int escalar, int * matrizA, int * matrizB)
 
   for (i = 0; i < tamanho; i++)
   {
-    for (j = 0; j < tamanho; j++)
+    auxSoma = 0;
+
+    for (k = 0; k < tamanho; k++)
     {
-      if(i==j)
-      {
-        auxSoma = 0;
+      auxSoma += escalar * matrizA[i * tamanho + k] * matrizB[k * tamanho + i];
+    }
 
-        for (k = 0; k < tamanho; k++)
-        {
-          auxSoma += escalar * matrizA[i * tamanho + k] * matrizB[k * tamanho + j];
-        }
+    printf("%d ", auxSoma);
 
-        //printf("%d, ", auxSoma);
-
-        if(auxSoma < menorValor)
-        {
-          menorValor = auxSoma;
-        }
-      }
+    if(auxSoma < menorValor)
+    {
+      menorValor = auxSoma;
     }
   }
 

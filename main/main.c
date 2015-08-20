@@ -19,7 +19,7 @@ extern int calc_nams(int tamanho, int escalar, int * matrizA, int * matrizB);
 
 int main(int argc, char **argv)
 {
-  int L = 2; //tamanho matriz
+  int L = 4; //tamanho matriz
 
   int matrizA[L * L];
   int matrizB[L * L];
@@ -34,8 +34,8 @@ int main(int argc, char **argv)
 
   printf("Trabalho Final de LM (Noturno) - Grupo \n");
 
-  //printf("%d\n", calc_c(L*L, escalar, matrizA, matrizB));
-  //printf("%d\n", calc_gas(L*L, escalar, matrizA, matrizB));
+  printf("%d\n", calc_c(L, escalar, matrizA, matrizB));
+  //printf("%d\n", calc_gas(L, escalar, matrizA, matrizB));
 
   return 0;
 }
@@ -44,7 +44,7 @@ void InicializaMatriz(int tamanho, int * matriz)
 {
   while(tamanho >= 0)
   {
-    matriz[tamanho] = rand() % 2;
+    matriz[tamanho] = rand() % 10 + 1;
     tamanho--;
   }
 }
