@@ -1,3 +1,4 @@
+#include <limits.h>
 /*
   int novaMatriz[tamanho * tamanho];
 
@@ -27,7 +28,7 @@ int calc_c(int tamanho, int escalar, int * matrizA, int * matrizB)
   int j = 0;
   int k = 0;
 
-  int menorValor = 999999;
+  int menorValor = INT_MAX;
   int auxSoma;
 
   for (i = 0; i < tamanho; i++)
