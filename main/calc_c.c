@@ -1,63 +1,57 @@
-void MultiplicaMatrizPorEscalar(int tamanho, int valor, int * matriz)
-{
-  while(tamanho >= 0)
+/*
+  int novaMatriz[tamanho * tamanho];
+
+  for (i = 0; i < tamanho; i++)
   {
-    matriz[tamanho] *= 2;
-    tamanho--;
+    for (j = 0; j < tamanho; j++)
+    {
+      novaMatriz[i * tamanho + j] = 0;
+
+      for (k = 0; k < tamanho; k++)
+      {
+        novaMatriz[i * tamanho + j] += escalar * matrizA[i * tamanho + k] * matrizB[k * tamanho + j];
+      }
+    }
   }
-}
+*/
 
-int* MultiplicaMatrizPorMatriza(int tamanho, int * matrizA, int * matrizB)
+int calc_c(int tamanho, int escalar, int * matrizA, int * matrizB)
 {
-  int novaMatriz[tamanho];
+  // printf("\nMatriz A");
+  // PrintMatriz(tamanho, matrizA);
 
-  int posNovaMatriz = 0;
+  // printf("\nMatriz B");
+  // PrintMatriz(tamanho, matrizB);
+
   int i = 0;
   int j = 0;
   int k = 0;
 
-  int auxLinha = 0;
-  int auxColuna = 0;
-  int auxSoma = 0;
+  int menorValor = 999999;
+  int auxSoma;
 
-
-  for (i = 0; i <= 2; i++)
+  for (i = 0; i < tamanho; i++)
   {
-    for (j = 0; j <= 2; j++)
+    for (j = 0; j < tamanho; j++)
     {
-      auxSoma = 0;
-
-      for (k = 0; k <= 2; k++)
+      if(i==j)
       {
-        auxSoma = auxSoma + matrizA[i * tamanho + k] * matrizB[k * tamanho + j];
-      }
+        auxSoma = 0;
 
-      novaMatriz[i * tamanho + j] = auxSoma;
+        for (k = 0; k < tamanho; k++)
+        {
+          auxSoma += escalar * matrizA[i * tamanho + k] * matrizB[k * tamanho + j];
+        }
+
+        //printf("%d, ", auxSoma);
+
+        if(auxSoma < menorValor)
+        {
+          menorValor = auxSoma;
+        }
+      }
     }
   }
 
-  return novaMatriz;
-}
-
-int calc_c(int tamanho, int escalar, int * matrizA, int * matrizB)
-{
-  int * matrizC;
-
-  //MultiplicaMatrizPorEscalar(tamanho * tamanho, 5, matrizA);
-
-  PrintMatriz(tamanho, matrizA);
-
-  printf("\n\n");
-
-  PrintMatriz(tamanho, matrizB);
-
-  printf("\n\n");
-
-  matrizC = MultiplicaMatrizPorMatriza(tamanho, matrizA, matrizB);
-
-  printf("\n\n");
-
-  PrintMatriz(tamanho, matrizC);
-
-  return 0;
+  return menorValor;
 }
