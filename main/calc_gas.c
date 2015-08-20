@@ -1,5 +1,6 @@
 int calc_gas(int tamanho, int escalar, int * matrizA, int * matrizB)
 {
-	//TODO
-	return 0;
+  asm("mov 12(%ebp),%ebx");
+  asm("mov 8(%ebp),%eax");
+  asm("add %ebx,%eax");
 }
