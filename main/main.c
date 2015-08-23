@@ -13,11 +13,10 @@ int calc_c(int tamanho, int escalar, int * matrizA, int * matrizB);
 #include "calc_c.c" 
 
 //Funcao para calculo em GAS
-int calc_gas(int tamanho, int escalar, int * matrizA, int * matrizB);
+extern int calc_gas(int tamanho, int escalar, int * matrizA, int * matrizB);
 
 //Funcao para calculo em NASM
-extern int calc_nams(int tamanho, int escalar, int * matrizA, int * matrizB);
-
+extern int calc_nasm(int tamanho, int escalar, int * matrizA, int * matrizB);
 
 //Funcao principal
 int main(int argc, char **argv)
@@ -26,7 +25,7 @@ int main(int argc, char **argv)
 
   srand(time(NULL)); //inicializa seed para gerar numeros random
 
-  int L = 4; //tamanho lado matriz
+  int L = 10; //tamanho maximo lado matriz
   int escalar = 5; //escalar da multiplicacao
 
   int matrizA[L * L];
@@ -35,13 +34,19 @@ int main(int argc, char **argv)
   InicializaMatriz(L*L, matrizA);
   InicializaMatriz(L*L, matrizB);
 
-  int stress = 10000000;
+  int stress = 100;
 
-  //obtem_estatistica(L, escalar, matrizA, matrizB, stress, "C", &calc_c);
+  int lado_teste;
+  for (lado_teste = 100; lado_teste <= L; lado_teste += 100)
+  {
+    obtem_estatistica(lado_teste, escalar, matrizA, matrizB, stress, "C", &calc_c);
+    obtem_estatistica(lado_teste, escalar, matrizA, matrizB, stress, "nasm", &calc_nasm);
+    obtem_estatistica(lado_teste, escalar, matrizA, matrizB, stress, "gas", &calc_gas);
+  }
 
-  printf("\nmenor em c : %d\n", calc_c(L, escalar, matrizA, matrizB));
-  printf("menor em nasm : %d\n", calc_nasm(L, escalar, matrizA, matrizB));
-  printf("menor em gas : %d\n", calc_gas(L, escalar, matrizA, matrizB));
+  //printf("menor em c : %d\n", calc_c(L, escalar, matrizA, matrizB));
+  //printf("menor em nasm : %d\n", calc_nasm(L, escalar, matrizA, matrizB));
+  //printf("menor em gas : %d\n", calc_gas(L, escalar, matrizA, matrizB));
 
   return 0;
 }
@@ -84,6 +89,6 @@ void obtem_estatistica(int tamanho, int escalar, int * matrizA, int * matrizB, i
 
   gettimeofday(&fim, NULL);
 
-  printf("Calculo em %s (%d x): %lf segundos.\n", func, stress,
+  printf("Calculo em %s (tamanho %d / %d x): %lf segundos.\n", func, tamanho, stress,
     (double) (fim.tv_usec - inicio.tv_usec) / 1000000 + (double) (fim.tv_sec - inicio.tv_sec));
 }
