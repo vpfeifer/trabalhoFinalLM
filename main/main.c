@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
   srand(time(NULL)); //inicializa seed para gerar numeros random
 
-  int L = 10; //tamanho maximo lado matriz
+  int L = 1000; //tamanho maximo lado matriz
   int escalar = 5; //escalar da multiplicacao
 
   int matrizA[L * L];
