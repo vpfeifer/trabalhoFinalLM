@@ -37,11 +37,11 @@ int main(int argc, char **argv)
 
   int stress = 10000000;
 
-  obtem_estatistica(L, escalar, matrizA, matrizB, stress, "C", &calc_c);
+  //obtem_estatistica(L, escalar, matrizA, matrizB, stress, "C", &calc_c);
 
-  //printf("%d\n", calc_c(L, escalar, matrizA, matrizB));
-  //printf("%d\n", calc_nams(L, escalar, matrizA, matrizB));
-  //printf("%d\n", calc_gas(L, escalar, matrizA, matrizB));
+  printf("\nmenor em c : %d\n", calc_c(L, escalar, matrizA, matrizB));
+  printf("menor em nasm : %d\n", calc_nasm(L, escalar, matrizA, matrizB));
+  printf("menor em gas : %d\n", calc_gas(L, escalar, matrizA, matrizB));
 
   return 0;
 }

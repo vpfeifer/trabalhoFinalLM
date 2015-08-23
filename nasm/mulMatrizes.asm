@@ -1,9 +1,9 @@
-global mulMatrizes
+'global mulMatrizes
 
 section .data
 
 valinc:		db	4
-menor:		db	255
+menor:		dd	127
 tamanho:	db	0
 escalar:	db	0
 
@@ -31,7 +31,6 @@ mulMatrizes:
  	loop_A:
  		xor edi,edi 			;auxsoma = 0
  		xor ch,ch				; j=0
- 		
 	 		loop_B :
 	 			xor eax,eax
 	 			mov eax,[tamanho]	
@@ -49,16 +48,17 @@ mulMatrizes:
 	 			imul eax, esi			; 5 * mA[i * tamanho + j] * mB[j * tamanho +i]
 	 			add	 edi, eax			; auxsoma += 5 * mA[i * tamanho + j] * mB[j * tamanho +i]
 	 			inc ch					; j++
+	 	
 	 			cmp ch,[tamanho]
 	 			jne	loop_B 		
-
- 		;cmp edi,[menor]				; if(auxSoma < menorValor)
- 		;jge continue_A				
+	 			
+ 		cmp edi, [menor]				; if(auxSoma < menorValor)
+ 		jge continue_A				
  		mov [menor],edi					; menor = auxSoma;
- 	;continue_A:
- 		;inc cl
- 		;cmp cl,[tamanho]
- 		;jne loop_A
+ 	continue_A:
+ 		inc cl
+ 		cmp cl,[tamanho]
+ 		jne loop_A
 
  	mov eax,[menor]
     pop  	ebp
