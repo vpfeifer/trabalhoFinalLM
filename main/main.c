@@ -5,7 +5,7 @@
 
 //Auxiliares
 void PrintMatriz(int tamanho, int * matriz);
-void InicializaMatriz(int tamanho, int * matriz);
+void InicializaMatriz(int tamanho, int * matriz, int rangeMin, int rangeMax);
 void obtem_estatistica(int tamanho, int escalar, int * matrizA, int * matrizB, int stress, char func[], int (*calc_generico)(int, int, int *, int *));
 
 //Funcao para calculo em c
@@ -25,37 +25,37 @@ int main(int argc, char **argv)
 
   srand(time(NULL)); //inicializa seed para gerar numeros random
 
-  int L = 1000; //tamanho maximo lado matriz
+  int lMax = 16; //tamanho maximo lado matriz
   int escalar = 5; //escalar da multiplicacao
 
-  int matrizA[L * L];
-  int matrizB[L * L];
+  int matrizA[lMax*lMax];
+  int matrizB[lMax*lMax];
 
-  InicializaMatriz(L*L, matrizA);
-  InicializaMatriz(L*L, matrizB);
+  InicializaMatriz(lMax*lMax, matrizA, 1, 10);
+  InicializaMatriz(lMax*lMax, matrizB, 1, 10);
 
   int stress = 100;
-
-  int lado_teste;
-  for (lado_teste = 100; lado_teste <= L; lado_teste += 100)
+  int l;
+  for (l = 2; l <= lMax; l++)
   {
-    obtem_estatistica(lado_teste, escalar, matrizA, matrizB, stress, "C", &calc_c);
-    obtem_estatistica(lado_teste, escalar, matrizA, matrizB, stress, "nasm", &calc_nasm);
-    obtem_estatistica(lado_teste, escalar, matrizA, matrizB, stress, "gas", &calc_gas);
+    obtem_estatistica(l, escalar, matrizA, matrizB, stress, "c   ", &calc_c);
+    obtem_estatistica(l, escalar, matrizA, matrizB, stress, "nasm", &calc_nasm);
+    obtem_estatistica(l, escalar, matrizA, matrizB, stress, "gas ", &calc_gas);
+    // printf("[%d]", calc_c(l, escalar, matrizA, matrizB));
+    // printf("[%d]", calc_nasm(l, escalar, matrizA, matrizB));
+    // printf("[%d]", calc_gas(l, escalar, matrizA, matrizB));
+    // printf("\n");
   }
-
-  //printf("menor em c : %d\n", calc_c(L, escalar, matrizA, matrizB));
-  //printf("menor em nasm : %d\n", calc_nasm(L, escalar, matrizA, matrizB));
-  //printf("menor em gas : %d\n", calc_gas(L, escalar, matrizA, matrizB));
 
   return 0;
 }
 
-void InicializaMatriz(int tamanho, int * matriz)
+void InicializaMatriz(int tamanho, int * matriz, int rangeMin, int rangeMax)
 {
+  tamanho--;
   while(tamanho >= 0)
   {
-    matriz[tamanho] = rand() % 10 + 1;
+    matriz[tamanho] = rand() % rangeMax + rangeMin;
     tamanho--;
   }
 }
@@ -68,7 +68,7 @@ void PrintMatriz(int tamanho, int * matriz)
   {
     if(i % tamanho == 0)
     {
-        printf("\n");
+      printf("\n");
     }
 
     printf("[%d]", matriz[i]);
@@ -89,6 +89,6 @@ void obtem_estatistica(int tamanho, int escalar, int * matrizA, int * matrizB, i
 
   gettimeofday(&fim, NULL);
 
-  printf("Calculo em %s (tamanho %d / %d x): %lf segundos.\n", func, tamanho, stress,
+  printf("Calculo em %s (tamanho %3d / %d x): %lf segundos.\n", func, tamanho, stress,
     (double) (fim.tv_usec - inicio.tv_usec) / 1000000 + (double) (fim.tv_sec - inicio.tv_sec));
 }
