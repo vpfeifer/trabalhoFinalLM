@@ -12,8 +12,8 @@ _start:
 calc_gas: 
         pushl   %ebp                                                    # coloca o ebp no topo da pilha
         movl    %esp,%ebp                                       # copia o endereço da pilha (esp) para ebp
+        movl    $999999999, menor
 
-        xorl            %ebx,%ebx #
     movl        16(%ebp),%ebx                           # argument 3 : endereço inicial da matriz A
     movl        20(%ebp),%edx                           # argument 4 : endereço inicial da matriz B;
 

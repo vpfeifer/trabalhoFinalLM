@@ -12,8 +12,8 @@ _start:
 calc_nasm:
 	push 	ebp							; coloca o ebp no topo da pilha
 	mov  	ebp,esp						; copia o endereço da pilha (esp) para ebp
+	mov 	[menor], DWORD 999999999
     
-	xor		ebx,ebx;
     mov 	ebx, [ebp+16]  				; argument 3 : endereço inicial da matriz A
     mov		edx, [ebp+20]				; argument 4 : endereço inicial da matriz B;
 

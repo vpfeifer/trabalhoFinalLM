@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
   srand(time(NULL)); //inicializa seed para gerar numeros random
 
-  int lMax = 16; //tamanho maximo lado matriz
+  int lMax = 500; //tamanho maximo lado matriz
   int escalar = 5; //escalar da multiplicacao
 
   int matrizA[lMax*lMax];
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
   int stress = 100;
   int l;
-  for (l = 2; l <= lMax; l++)
+  for (l = 5; l <= lMax; l += 5)
   {
     obtem_estatistica(l, escalar, matrizA, matrizB, stress, "c   ", &calc_c);
     obtem_estatistica(l, escalar, matrizA, matrizB, stress, "nasm", &calc_nasm);
